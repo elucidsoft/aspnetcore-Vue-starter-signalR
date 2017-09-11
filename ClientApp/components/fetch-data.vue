@@ -1,8 +1,8 @@
-﻿<template>
+<template>
     <div>
         <h1>Weather forecast</h1>
 
-        <p>This component demonstrates fetching data from the server.</p>
+        <p>This component demonstrates fetching data from the server.</p> <p v-if="lastUpdated">Last Updated: {{ lastUpdated }}</p>
 
         <p v-if="!forecasts"><em>Loading...</em></p>
 
@@ -17,10 +17,10 @@
             </thead>
             <tbody>
                 <tr v-for="forecast in forecasts" >
-                    <td>{{ forecast.dateFormatted }}</td>
-                    <td>{{ forecast.temperatureC }}</td>
-                    <td>{{ forecast.temperatureF }}</td>
-                    <td>{{ forecast.summary }}</td>
+                    <td>{{ forecast.DateFormatted }}</td>
+                    <td>{{ forecast.TemperatureC }}</td>
+                    <td>{{ forecast.TemperatureF }}</td>
+                    <td>{{ forecast.Summary }}</td>
                 </tr>
             </tbody>
         </table>
@@ -30,36 +30,27 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            forecasts: null
-        }
-    },
+    var signalR = require('../signalr-client.min.js');
 
-    methods: {
-    },
+    let http = new signalR.HttpConnection('http://' + document.location.host + '/weather');
+    let connection = new signalR.HubConnection(http);
 
-    async created() {
-        // ES2017 async/await syntax via babel-plugin-transform-async-to-generator
-        // TypeScript can also transpile async/await down to ES5
-        try {
-            let response = await this.$http.get('/api/SampleData/WeatherForecasts')
-            console.log(response.data);
-            this.forecasts = response.data;
-        } catch (error) {
-            console.log(error)
+    export default {
+        data() {
+            return {
+                forecasts: null,
+                lastUpdated: ''
+            }
+        },
+        mounted: function () {
+            connection.start();
+
+            connection.on('weather', data => {
+                this.forecasts = data;
+                this.lastUpdated = new Date().toLocaleString();
+            });
         }
-        // Old promise-based approach
-        //this.$http
-        //    .get('/api/SampleData/WeatherForecasts')
-        //    .then(response => {
-        //        console.log(response.data)
-        //        this.forecasts = response.data
-        //    })
-        //    .catch((error) => console.log(error))*/
     }
-}
 </script>
 
 <style>

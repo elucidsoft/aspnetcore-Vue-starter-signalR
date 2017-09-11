@@ -1,56 +1,36 @@
-﻿<template>
-  <div>
-    <h1>Counter</h1>
+<template>
+    <div>
+        <h1>Counter</h1>
 
-    <p>This is a simple example of a Vue.js component & Vuex</p>
+        <p>This is a simple example of a Vue.js component & SignalR. To see how this data is coming from the server, open this page in more than one browser tab.  You will notice how the count is synchronized between the two, because the data is being pushed to each client from the server.</p>
 
-    <p>
-      Current count (Vuex): <strong>{{ currentCount }}</strong>
-    </p>
-    <p>
-      Auto count: <strong>{{ autoCount }}</strong>
-    </p>
+        <p>
+            Auto count: <strong>{{ count }}</strong>
+        </p>
 
-    <button @click="incrementCounter()">Increment</button>
-    <button @click="resetCounter()">Reset</button>
-  </div>
+    </div>
 </template>
 
 <script>
-  import { mapActions, mapState } from 'vuex'
+    var signalR = require('../signalr-client.min.js');
 
-  export default {
-  data() {
-  return {
-  autoCount: 0,
-  }
-  },
+    let http = new signalR.HttpConnection('http://' + document.location.host + '/counter');
+    let connection = new signalR.HubConnection(http);
 
-  computed: {
-  ...mapState({
-  currentCount: state => state.counter
-  })
-  },
+    export default {
+        data() {
+            return {
+                count: 0,
+            }
+        },
+        mounted: function () {
+            connection.start();
 
-  methods: {
-  ...mapActions(['setCounter']),
-
-  incrementCounter: function() {
-  var counter = this.currentCount + 1;
-  this.setCounter({counter: counter});
-  },
-  resetCounter: function() {
-  this.setCounter({counter: 0});
-  this.autoCount = 0;
-  }
-  },
-
-  created() {
-  setInterval(() => {
-  this.autoCount += 1
-  }, 1000)
-  }
-  }
+            connection.on('counter', data => {
+                this.count = data;
+            });
+        }
+    }
 </script>
 
 <style>

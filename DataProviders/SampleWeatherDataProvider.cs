@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Vue2SpaSignalR.Controllers
+namespace Vue2SpaSignalR.DataProviders
 {
-    [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class WeatherDataProvider
     {
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
             var rng = new Random();

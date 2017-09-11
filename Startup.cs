@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Vue2SpaSignalR.Services.Hubs;
 
-namespace Vue2Spa
+namespace Vue2SpaSignalR
 {
     public class Startup
     {
@@ -30,6 +27,10 @@ namespace Vue2Spa
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddSignalR();
+            services.AddSingleton<CounterHub>();
+            services.AddSingleton<WeatherHub>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +53,12 @@ namespace Vue2Spa
             }
 
             app.UseStaticFiles();
-
+            app.UseSignalR(routes =>
+                {
+                    routes.MapHub<CounterHub>("counter");
+                    routes.MapHub<WeatherHub>("weather");
+                }
+            );
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
