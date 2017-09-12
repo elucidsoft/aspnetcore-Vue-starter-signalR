@@ -25,8 +25,8 @@
         },
         mounted: function () {
             connection.start();
-
-            connection.on('counter', data => {
+            
+            connection.on('increment', data => {
                 this.count = data;
             });
         }

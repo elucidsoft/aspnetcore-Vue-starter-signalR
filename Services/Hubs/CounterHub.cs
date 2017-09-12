@@ -9,18 +9,60 @@ namespace Vue2SpaSignalR.Services.Hubs
 {
     public class CounterHub : Hub
     {
-        private static Timer _timer;
-        private static int _counter = 0;
+        private readonly Counter _counter;
 
-        public CounterHub()
+        public CounterHub(Counter counter)
         {
-            _timer = new Timer(state =>
-            {
-                var val = _counter++;
-                Clients.All.InvokeAsync("counter", _counter);
-
-            }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            _counter = counter;
         }
     }
 
+    public class Counter
+    {
+        private static int _counter = 0;
+ 
+        public Counter(IHubContext<CounterHub> context)
+        {
+            Clients = context.Clients;
+            StartCounter();
+        }
+
+        private IHubClients Clients { get; }
+
+        public void StartCounter()
+        {
+            var cancellationToken = new CancellationToken();
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    Increment();
+                    var task = Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                    try
+                    {
+                        await task;
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        return;
+                    }
+                }
+            }, cancellationToken);
+        }
+
+        private async void Increment()
+        {
+            var mutex = new SemaphoreSlim(1);
+            await mutex.WaitAsync();
+            try
+            {
+                _counter++;
+                 await Clients.All.InvokeAsync("increment", _counter);
+            }
+            finally
+            {
+                mutex.Release();
+            }
+        }
+    }
 }

@@ -28,9 +28,9 @@ namespace Vue2SpaSignalR
             // Add framework services.
             services.AddMvc();
 
+            services.AddSingleton<Counter>();
+            services.AddSingleton<Weather>();
             services.AddSignalR();
-            services.AddSingleton<CounterHub>();
-            services.AddSingleton<WeatherHub>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
