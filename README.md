@@ -3,7 +3,7 @@
 This repo contains an aspnetcore + Vue.js 2 + SignalR Alpha starter template (VS2017). The template is based
 on the [aspnetcore-Vue-starter Template](https://github.com/MarkPieszak/aspnetcore-Vue-starter)
 
-_Looking for the original starter templates? [click here](https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/)
+_Looking for the original starter templates? [click here](https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/)_
 
 _Looking for aspnetcore & Angular 2.x+ Universal starter? [click here](https://github.com/MarkPieszak/aspnetcore-angular2-universal)_
  
