@@ -6,6 +6,10 @@ on the [aspnetcore-Vue-starter Template](https://github.com/MarkPieszak/aspnetco
 _Looking for the original starter templates? [click here](https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/)_
 
 _Looking for aspnetcore & Angular 2.x+ Universal starter? [click here](https://github.com/MarkPieszak/aspnetcore-angular2-universal)_
+
+_Looking for SignalR source code? [click here](https://github.com/aspnet/SignalR)_
+
+_Looking for the original SignalR Sample? [click here](https://github.com/davidfowl/SignalRCoreAlphaSample)_
  
 ---
 
@@ -60,7 +64,9 @@ Nothing's ever perfect, but please let me know by creating an issue (make sure t
 
 Many thanks go out to Steve Sanderson (@SteveSandersonMS) from Microsoft and his amazing work on [JavaScriptServices](https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/) and integrating the world of Node with ASP.NET Core.
 
-And to Mark Pieszak for creating the original template that this was based on.
+[Mark Pieszak](https://github.com/MarkPieszak) for creating the original template that this was based on.
+
+[David Fowler](https://github.com/davidfowl) for SignalR and for reviewing and improving this starter template.
 
 # License
 
