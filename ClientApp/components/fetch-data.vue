@@ -30,21 +30,21 @@
 </template>
 
 <script>
-    var signalR = require('../signalr-client.min.js');
-
-    let connection = new signalR.HubConnection('/weather');
-
     export default {
         data() {
             return {
+                connection: null,
                 forecasts: null,
                 lastUpdated: ''
             }
         },
+        created: function () {
+            this.connection = new this.$signalR.HubConnection('/weather');
+        },
         mounted: function () {
-            connection.start();
+            this.connection.start();
 
-            connection.on('weather', data => {
+            this.connection.on('weather', data => {
                 this.forecasts = data;
                 this.lastUpdated = new Date().toLocaleString();
             });

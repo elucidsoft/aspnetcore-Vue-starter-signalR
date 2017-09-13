@@ -12,20 +12,23 @@
 </template>
 
 <script>
-    var signalR = require('../signalr-client.min.js');
-
-    let connection = new signalR.HubConnection('/count');
-
+        
     export default {
         data() {
             return {
+                connection: null,
                 count: 0,
             }
         },
+        created: function ()
+        {
+            this.connection = new this.$signalR.HubConnection('/count');
+
+        },
         mounted: function () {
-            connection.start();
+            this.connection.start();
             
-            connection.on('increment', data => {
+            this.connection.on('increment', data => {
                 this.count = data;
             });
         }
