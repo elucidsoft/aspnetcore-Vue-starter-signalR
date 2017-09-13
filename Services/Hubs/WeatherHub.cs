@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,43 +9,14 @@ namespace Vue2SpaSignalR.Services.Hubs
 {
     public class WeatherHub : Hub
     {
-        private readonly Weather _weather;
-
-        public WeatherHub(Weather weather)
-        {
-            _weather = weather;
-            weather.StartWeatherFetch();
-        }
+       
     }
 
-    public class Weather
+    public class Weather : HostedService
     {
-        private ConcurrentBag<WeatherForecast> weatherForecasts = new ConcurrentBag<WeatherForecast>();
-
         public Weather(IHubContext<WeatherHub> context)
         {
             Clients = context.Clients;
-        }
-
-        public void StartWeatherFetch()
-        {
-            var cancellationToken = new CancellationToken();
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    GetWeatherForecasts();
-                    var task = Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-                    try
-                    {
-                        await task;
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        return;
-                    }
-                }
-            }, cancellationToken);
         }
 
         private IHubClients Clients { get; }
@@ -56,7 +25,7 @@ namespace Vue2SpaSignalR.Services.Hubs
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public async void GetWeatherForecasts()
+        public async Task UpdateWeatherForecasts()
         {
             var rng = new Random();
             var randomWeatherForescast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -66,13 +35,25 @@ namespace Vue2SpaSignalR.Services.Hubs
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
 
-            weatherForecasts.Clear();
-            foreach (var wf in randomWeatherForescast)
-            {
-                weatherForecasts.Add(wf);
-            }
+            await Clients.All.InvokeAsync("weather", randomWeatherForescast);
+        }
 
-            await Clients.All.InvokeAsync("weather", weatherForecasts.AsEnumerable());
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        {
+            while (true)
+            {
+                await UpdateWeatherForecasts();
+
+                var task = Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                try
+                {
+                    await task;
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
+            }
         }
 
         public class WeatherForecast

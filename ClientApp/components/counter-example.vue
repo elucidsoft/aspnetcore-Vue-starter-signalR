@@ -14,8 +14,7 @@
 <script>
     var signalR = require('../signalr-client.min.js');
 
-    let http = new signalR.HttpConnection('http://' + document.location.host + '/counter');
-    let connection = new signalR.HubConnection(http);
+    let connection = new signalR.HubConnection('/count');
 
     export default {
         data() {

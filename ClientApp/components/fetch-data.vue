@@ -32,8 +32,7 @@
 <script>
     var signalR = require('../signalr-client.min.js');
 
-    let http = new signalR.HttpConnection('http://' + document.location.host + '/weather');
-    let connection = new signalR.HubConnection(http);
+    let connection = new signalR.HubConnection('/weather');
 
     export default {
         data() {
