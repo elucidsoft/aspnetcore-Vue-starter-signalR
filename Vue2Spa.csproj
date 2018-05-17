@@ -1,18 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>Vue2SpaSignalR</AssemblyName>
     <RootNamespace>Vue2SpaSignalR</RootNamespace>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha1-10012" />
-
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-preview2-final" />
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
