@@ -11,7 +11,7 @@ import jquery from 'jquery'
 window.$ = jquery
 window.jQuery = jquery
 
-var signalR = require('./signalr-client.min.js');
+var signalR = require('./signalr.min.js');
 
 Vue.prototype.$http = axios;
 Vue.prototype.$signalR = signalR;
