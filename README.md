@@ -8,8 +8,6 @@ _Looking for the original starter templates? [click here](https://blogs.msdn.mic
 _Looking for aspnetcore & Angular 2.x+ Universal starter? [click here](https://github.com/MarkPieszak/aspnetcore-angular2-universal)_
 
 _Looking for SignalR source code? [click here](https://github.com/aspnet/SignalR)_
-
-_Looking for the original SignalR Sample? [click here](https://github.com/davidfowl/SignalRCoreAlphaSample)_
  
 ---
 
