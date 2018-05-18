@@ -25,7 +25,7 @@ namespace Vue2SpaSignalR.Services.Hubs
 
             while (true)
             {
-                await Clients.All.InvokeAsync("increment", counter);
+                await Clients.All.SendAsync("increment", counter);
 
                 var task = Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
 

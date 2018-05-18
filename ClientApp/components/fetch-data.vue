@@ -17,10 +17,10 @@
             </thead>
             <tbody>
                 <tr v-for="forecast in forecasts" >
-                    <td>{{ forecast.DateFormatted }}</td>
-                    <td>{{ forecast.TemperatureC }}</td>
-                    <td>{{ forecast.TemperatureF }}</td>
-                    <td>{{ forecast.Summary }}</td>
+                    <td>{{ forecast.dateFormatted }}</td>
+                    <td>{{ forecast.temperatureC }}</td>
+                    <td>{{ forecast.temperatureF }}</td>
+                    <td>{{ forecast.summary }}</td>
                 </tr>
             </tbody>
         </table>
@@ -39,7 +39,10 @@
             }
         },
         created: function () {
-            this.connection = new this.$signalR.HubConnection('/weather');
+            this.connection = new this.$signalR.HubConnectionBuilder()
+                .withUrl("http://localhost:5000/weather")
+                .configureLogging(this.$signalR.LogLevel.Error)
+                .build();
         },
         mounted: function () {
             this.connection.start();

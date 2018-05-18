@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,8 +44,8 @@ namespace Vue2SpaSignalR
             app.UseStaticFiles();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<CounterHub>("count");
-                routes.MapHub<WeatherHub>("weather");
+                routes.MapHub<CounterHub>("/count");
+                routes.MapHub<WeatherHub>("/weather");
             });
 
             app.UseMvc(routes =>

@@ -22,8 +22,10 @@
         },
         created: function ()
         {
-            this.connection = new this.$signalR.HubConnection('/count');
-
+            this.connection = new this.$signalR.HubConnectionBuilder()
+                .withUrl("http://localhost:5000/count")
+                .configureLogging(this.$signalR.LogLevel.Error)
+                .build();
         },
         mounted: function () {
             this.connection.start();

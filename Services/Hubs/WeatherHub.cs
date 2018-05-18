@@ -35,7 +35,7 @@ namespace Vue2SpaSignalR.Services.Hubs
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
 
-            await Clients.All.InvokeAsync("weather", randomWeatherForescast);
+            await Clients.All.SendAsync("weather", randomWeatherForescast);
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
