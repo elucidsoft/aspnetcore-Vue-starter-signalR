@@ -24,20 +24,20 @@ _Looking for the original SignalR Sample? [click here](https://github.com/davidf
 
 # Features
 
-- **ASP.NET Core 2.0**
+- **ASP.NET Core 2.1**
   - Web API
 - **VueJS 2**
   - Vuex (State Store)
 - **Webpack 2**
   - HMR (Hot Module Replacement/Reloading)
 - **Bootstrap**
-- **SignalR Alpha**
+- **SignalR RC1**
 
 
 # Prerequisites:
  * nodejs > 6
  * VS2017
- * dotnet core 2.0
+ * dotnet core 2.1
 
 # Installation / Getting Started:
  * Clone this repo
