@@ -17,7 +17,7 @@
     "vue-server-renderer": "^2.1.6",
     "vuex": "^2.1.1",
     "vuex-router-sync": "^4.0.1",
-    "@aspnet/signalr": "^1.0.0-rc1-update1",
+    "@aspnet/signalr": "^1.0.0-rc1-update1"
   },
   "devDependencies": {
     "aspnet-webpack": "^2.0.1",
