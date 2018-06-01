@@ -1,4 +1,4 @@
-# Asp.NETCore 2.0 Vue 2 SignalR Starter
+# Asp.NETCore 2.1 Vue 2 SignalR Starter
 
 This repo contains an aspnetcore + Vue.js 2 + SignalR Alpha starter template (VS2017). The template is based
 on the [aspnetcore-Vue-starter Template](https://github.com/MarkPieszak/aspnetcore-Vue-starter)
